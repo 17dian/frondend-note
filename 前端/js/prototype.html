@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<div>
+		  对象、继承、类
+	</div>
+</body>
+<script type="text/javascript">
+	
+	//创建对象 
+	// let a = new Object()
+
+	// let b = {
+	// 	name:"keke",
+	// 	age:"18"
+	// };
+
+
+	//工厂模式 ： 
+
+	// function factory(name,age){
+	// 	let obj= new Object();
+ //        obj.name = name;
+ //        obj.age = age;
+ //        obj.say = function(){
+ //        	console.log('说说说～')
+ //        }
+	// 	return obj
+	// }
+
+	//8.2.3 构造函数模式（new）  +  8.2.4 原型模式  prototype 与 __proto__ 
+
+	// function Person(name,age){
+	// 	this.name=name;
+	// 	this.age = age;
+	// }
+
+	// console.log(Person.prototype)
+	 
+	// console.log(Person.prototype.constructor === Person)
+
+	// Person.prototype.say = function(){
+	// 	console.log('说说说～～')
+	// }
+
+
+	// const person1 = new Person("keke","18")
+
+	// console.log(person1)
+
+	// 1、生成一个空对象
+	// 2、讲空对象 __proto__ 指向 构造函数的 prototype
+	// 3、让构造函数在这个对象的环境上执行
+	// 4、执行构造函数
+	// 5、返回这个对象
+
+	// function newFn(Fn,name,age){
+	// 	let obj = {};
+	// 	obj.__proto__ = Fn.prototype;
+	// 	obj.Fn = Fn;
+	// 	obj.Fn(name,age);
+	// 	delete obj.Fn;
+	// 	return obj;
+	// }
+
+	// const person2 = newFn(Person,"keke","18")
+
+	// console.log(person2)
+// 
+ //    console.log(person1 instanceof Person)
+	// console.log(person2 instanceof Person)
+
+    //instanceof    person.__proto__ 与 Person 的 propoty  有就为true
+
+
+ //-------------------------------------------------------------
+
+ // 对象的继承 ： 
+
+   //首先，就是继承是想干嘛？最后要实现一个什么样的结果、
+
+
+   	function Person(name,age){
+		this.name=name;
+		this.age = age;
+	}
+
+	Person.prototype.say = function(){
+		console.log('说说说～～')
+	}
+
+
+
+	function Chinese(province){
+		 this.province= "北京";
+
+		 this.name=name;
+		 this.age = age;
+	}
+
+    Chinese.prototype.say = function(){
+		console.log('说说说～～')
+	}
+
+    function Chinese(province){
+		 this.province= province;
+		 Person.call(this)
+	}
+
+    // Chinese.prototype = Person.prototype;
+
+    //缺点：
+
+    // Chinese.prototype = new Person();
+
+    
+
+
+    // function Fn(){}    //
+    // Fn.prototype = Person.prototype;
+    // Chinese.prototype = new Fn();
+
+    // let chinese1 = new Chinese()
+    // console.log(chinese1)
+
+    function object(o){
+        function Fn(){}
+        Fn.prototype = o.prototype;
+    	return new Fn();
+    }
+
+    // Object.create() //在ES5中规定了这样一个方法
+
+    function inheritPrototype(subType, superType){
+    	let prototype  = object(superType);
+    	prototype.constructor =  subType;
+    	subType.prototype = prototype;
+    }
+
+    inheritPrototype(Chinese,Person)
+    let chinese1 = new Chinese()
+    console.log(chinese1)
+
+    //javascript 的继承 语法糖  
+   
+
+
+
+    class Person{
+        constructor(name,age){
+        	this.name = name;
+        	this.age.age;
+        }
+    }
+
+
+    class Chinese extends Person{
+    	constructor(props){
+    		super(props)
+    		this.province = props.province;
+    	}
+    }
+
+
+</script>
+</html>
